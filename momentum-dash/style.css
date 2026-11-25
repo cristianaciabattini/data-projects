@@ -3,7 +3,11 @@ body {
   height: 100vh;
   font-family: -apple-system, BlinkMacSystemFont, "Helvetica Neue", Arial, sans-serif;
   color: white;
-  background: linear-gradient(135deg, #1e3c72, #2a5298);
+    /* Fallback colour, used until background.js sets a photo. */
+  background-color: #1e3c72;
+  background-size: cover;          /* the photo fills the whole screen */
+  background-position: center;
+  text-shadow: 0 2px 8px rgba(0, 0, 0, 0.5);  /* keeps text readable on any photo */
   display: flex;
   align-items: center;
   justify-content: center;
