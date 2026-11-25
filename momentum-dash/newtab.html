@@ -18,7 +18,12 @@
       <input id="name-input" type="text" maxlength="30" autocomplete="off">
     </div>
   </main>
-
+  <!-- Weather, fixed in the top-right corner. Hidden until the data arrives. -->
+  <section id="weather" hidden>
+    <span id="weather-icon"></span>
+    <span id="weather-temp"></span>
+    <div id="weather-place"></div>
+  </section>
   <!-- To-do list, fixed in the bottom-right corner. -->
   <section id="todo-panel">
     <h3>Today</h3>
@@ -29,5 +34,6 @@
   <script src="script.js"></script>
   <script src="todo.js"></script>
   <script src="background.js"></script>
+  <script src="weather.js"></script>
 </body>
 </html>
