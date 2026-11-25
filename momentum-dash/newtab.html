@@ -8,7 +8,15 @@
 <body>
   <main class="center">
     <h1 id="clock">--:--</h1>
-    <h2 id="greeting">Hello</h2>
+
+    <!-- Shown once the name is known. Double-click it to change the name. -->
+    <h2 id="greeting" hidden title="Double-click to change your name"></h2>
+
+    <!-- Shown the first time, when no name is saved yet. -->
+    <div id="name-box" hidden>
+      <label for="name-input">Hello, what's your name?</label>
+      <input id="name-input" type="text" maxlength="30" autocomplete="off">
+    </div>
   </main>
 
   <script src="script.js"></script>

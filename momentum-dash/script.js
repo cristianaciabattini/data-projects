@@ -1,7 +1,12 @@
-// The name shown in the greeting.
-// Placeholder for now: in a later step the extension will ask for the name
-// and save it in chrome.storage, so no personal data ends up in the repository.
-const userName = "friend";
+// The name shown in the greeting. It starts empty and is loaded from
+// chrome.storage.local, so the name is saved on this computer only
+// and never written in the code (no personal data in the repository).
+let userName = "";
+
+// Shortcuts to the page elements we use.
+const greetingEl = document.getElementById("greeting");
+const nameBox = document.getElementById("name-box");
+const nameInput = document.getElementById("name-input");
 
 // Shows the current time (hours:minutes) in the #clock element.
 function updateClock() {
@@ -13,6 +18,10 @@ function updateClock() {
 
 // Chooses "Good morning / afternoon / evening" based on the hour.
 function updateGreeting() {
+  if (userName === "") {
+    return; // no name yet: nothing to greet
+  }
+
   const hour = new Date().getHours();
   let partOfDay;
 
@@ -24,14 +33,55 @@ function updateGreeting() {
     partOfDay = "Good evening";
   }
 
-  document.getElementById("greeting").textContent = partOfDay + ", " + userName + ".";
+  greetingEl.textContent = partOfDay + ", " + userName + ".";
 }
 
-// Run once immediately, so the page is never empty...
-updateClock();
-updateGreeting();
+// Hides the input box and shows the greeting.
+function showGreeting() {
+  nameBox.hidden = true;
+  greetingEl.hidden = false;
+  updateGreeting();
+}
 
-// ...then refresh every second, so the clock and greeting stay up to date.
+// Hides the greeting and shows the input box (first time, or to change the name).
+function showNameInput() {
+  greetingEl.hidden = true;
+  nameBox.hidden = false;
+  nameInput.value = userName;
+  nameInput.focus();
+}
+
+// When the user presses Enter in the input box, save the name.
+nameInput.addEventListener("keydown", function (event) {
+  if (event.key !== "Enter") {
+    return;
+  }
+
+  const typedName = nameInput.value.trim(); // trim() removes extra spaces
+  if (typedName === "") {
+    return; // ignore an empty name
+  }
+
+  userName = typedName;
+  chrome.storage.local.set({ userName: userName }); // save it on this computer
+  showGreeting();
+});
+
+// Double-click the greeting to change the name.
+greetingEl.addEventListener("dblclick", showNameInput);
+
+// When the page opens: read the saved name (if any) from storage.
+chrome.storage.local.get(["userName"], function (result) {
+  if (result.userName) {
+    userName = result.userName;
+    showGreeting();
+  } else {
+    showNameInput();
+  }
+});
+
+// Start the clock immediately, then refresh clock and greeting every second.
+updateClock();
 setInterval(function () {
   updateClock();
   updateGreeting();
