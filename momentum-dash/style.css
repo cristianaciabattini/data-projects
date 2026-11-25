@@ -42,3 +42,80 @@ body {
   outline: none;
   width: 18rem;
 }
+
+/* ---------- To-do list ---------- */
+
+#todo-panel {
+  position: fixed;          /* stays in the corner, outside the centered layout */
+  right: 2rem;
+  bottom: 2rem;
+  width: 18rem;
+  padding: 1rem 1.25rem;
+  background: rgba(0, 0, 0, 0.25);
+  border-radius: 12px;
+  text-align: left;
+}
+
+#todo-panel h3 {
+  margin: 0 0 0.5rem;
+  font-size: 1.1rem;
+  font-weight: 600;
+}
+
+#todo-list {
+  list-style: none;         /* no bullet points */
+  margin: 0 0 0.75rem;
+  padding: 0;
+  max-height: 40vh;         /* long lists scroll instead of growing forever */
+  overflow-y: auto;
+}
+
+#todo-list li {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.25rem 0;
+}
+
+#todo-list label {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  cursor: pointer;
+}
+
+/* A completed task: crossed out and faded. */
+#todo-list .done {
+  text-decoration: line-through;
+  opacity: 0.6;
+}
+
+#todo-list button {
+  background: none;
+  border: none;
+  color: white;
+  font-size: 1.1rem;
+  cursor: pointer;
+  opacity: 0.5;
+}
+
+#todo-list button:hover {
+  opacity: 1;
+}
+
+#todo-input {
+  width: 100%;
+  box-sizing: border-box;
+  padding: 0.3rem 0;
+  font-size: 1rem;
+  color: white;
+  background: transparent;
+  border: none;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.6);
+  outline: none;
+}
+
+#todo-input::placeholder {
+  color: rgba(255, 255, 255, 0.7);
+}
