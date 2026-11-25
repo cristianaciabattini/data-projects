@@ -1,14 +1,23 @@
-// To-do list. The tasks are saved in chrome.storage.local,
+// Daily to-do list. The tasks are saved in chrome.storage.local,
 // so they are still there when a new tab is opened.
 // Each task is an object like: { text: "Study for the exam", done: false }
+// Every new day, completed tasks are removed; unfinished ones stay.
 let todos = [];
 
 const todoList = document.getElementById("todo-list");
 const todoInput = document.getElementById("todo-input");
 
-// Saves the whole list on this computer.
+// Returns today's date as text, for example "2026-11-25" (local time).
+function getToday() {
+  const now = new Date();
+  const month = String(now.getMonth() + 1).padStart(2, "0"); // months start from 0
+  const day = String(now.getDate()).padStart(2, "0");
+  return now.getFullYear() + "-" + month + "-" + day;
+}
+
+// Saves the whole list on this computer, together with today's date.
 function saveTodos() {
-  chrome.storage.local.set({ todos: todos });
+  chrome.storage.local.set({ todos: todos, todosDate: getToday() });
 }
 
 // Draws the list on the page from the "todos" array.
@@ -71,7 +80,16 @@ todoInput.addEventListener("keydown", function (event) {
 });
 
 // When the page opens: load the saved tasks (or start with an empty list).
-chrome.storage.local.get(["todos"], function (result) {
+// If they were saved on a different day, remove the completed ones.
+chrome.storage.local.get(["todos", "todosDate"], function (result) {
   todos = result.todos || [];
+
+  if (result.todosDate !== getToday()) {
+    todos = todos.filter(function (todo) {
+      return todo.done === false; // keep only the tasks not done yet
+    });
+    saveTodos(); // save the cleaned list with today's date
+  }
+
   renderTodos();
 });
