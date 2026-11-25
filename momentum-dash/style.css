@@ -148,3 +148,45 @@ body {
   font-size: 0.95rem;
   opacity: 0.85;
 }
+
+
+/* ---------- Tuttosport headlines ---------- */
+
+#news {
+  position: fixed;
+  top: 1.5rem;
+  left: 2rem;
+  width: 22rem;
+  text-align: left;
+}
+
+#news h3 {
+  margin: 0 0 0.4rem;
+  font-size: 0.85rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  opacity: 0.85;
+}
+
+#news-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+#news-list li {
+  margin-bottom: 0.5rem;
+  line-height: 1.3;
+}
+
+#news-list a {
+
+  color: white;
+  text-decoration: none;
+  font-size: 0.95rem;
+}
+
+#news-list a:hover {
+  text-decoration: underline;
+}

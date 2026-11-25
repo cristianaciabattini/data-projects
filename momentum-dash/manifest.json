@@ -1,9 +1,10 @@
 {
   "manifest_version": 3,
   "name": "My Momentum Dash",
-  "version": "0.7.0",
+  "version": "0.8.0",
   "description": "A personal new tab dashboard inspired by Momentum.",
   "permissions": ["storage","geolocation"],
+  "host_permissions": ["https://www.tuttosport.com/*"],
   "chrome_url_overrides": {
     "newtab": "newtab.html"
   }
