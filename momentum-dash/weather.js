@@ -46,9 +46,25 @@ function showWeather(place) {
     });
 }
 
-// Decides which place to use and loads its weather.
+// Decides which place to use and loads its weather:
+// my current location if the browser can find it, otherwise Lisbon.
 function loadWeather() {
-  showWeather(LISBON);
+  navigator.geolocation.getCurrentPosition(
+    function (position) {
+      // Rounded to 2 decimals (about 1 km): precise enough for the weather,
+      // without sending my exact position to Open-Meteo.
+      showWeather({
+        name: "Current location",
+        latitude: position.coords.latitude.toFixed(2),
+        longitude: position.coords.longitude.toFixed(2)
+      });
+    },
+    function () {
+      // Location refused or not available: use Lisbon instead.
+      showWeather(LISBON);
+    },
+    { timeout: 10000, maximumAge: 30 * 60 * 1000 }
+  );
 }
 
 // Load now, then refresh every 30 minutes.
