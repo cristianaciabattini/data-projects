@@ -56,7 +56,7 @@ Not stored: the weather, the location and the headlines are fetched fresh each t
 **Install:**
 
 1. Download or clone this repository:
-   `git clone https://github.com/cristianaciabattini/cristiana-momentum.git`
+   `git clone https://github.com/cristianaciabattini/data-projects.git`
 2. In Chrome, open `chrome://extensions`.
 3. Turn on **Developer mode** (top right).
 4. Click **Load unpacked** and select the `momentum-dash` folder.
